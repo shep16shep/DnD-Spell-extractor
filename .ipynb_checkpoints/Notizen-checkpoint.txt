@@ -1,0 +1,14 @@
+DnD Spell Extractor
+
+Brauche ich Daten? 
+Was sind unsere Ziele?
+
+Ideen:
+- Kategorisierung von Spells (z.B. nach "fire damage")
+- Saving Throw dazu
+- Ausgabe von Infos zum Spell als Stichpunkte
+- Ausgabe davon was passiert, wenn Spell failed
+
+1. Eingabe: Klasse & Level
+Ausgabe: "Was willst du? Welche Sortierung?"
+2. Eingabe:"Ich will alle spells (sortiert nach damage, type, saving throw, etc.)
