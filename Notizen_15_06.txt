@@ -1,0 +1,159 @@
+DnD Spell Extractor
+
+Brauche ich Daten?
+    -> spells von http://dnd5e.wikidot.com/spells
+  
+Was sind unsere Ziele?
+    - Spell repository gibt Spells bestimmter Kategorien auf Nachfrage
+    - Eingabe eines Spell-Namens und der gesuchten Info (z.B. do I need to see the target?) mit Rückgabe eines relevanten Stichpunktes aus dem Fließtext gesucht
+    
+Stretch Goals
+    - z.B. bei Saving Throws eingeben was damage gewürfelt und was Gegener gewürfelt -> Angabe ob Damage genommen
+	- Eingabe von Monstername -> Vorschläge von
+	- Ausgabe von spells bei denen man selbst damagen möchte
+
+Ideen:
+- Kategorisierung von Spells (z.B. nach "fire damage")
+- Saving Throw dazu
+- Ausgabe von Infos zum Spell als Stichpunkte
+- Ausgabe davon was passiert, wenn Spell failed
+
+1. Eingabe: Klasse & Level
+Ausgabe: "Was willst du? Welche Sortierung?"
+2. Eingabe:"Ich will alle spells (sortiert nach damage, type, saving throw, etc.)
+
+Kategorien
+1) Was für eine Art/Kategorie? (z.B. damage spell, buff spells, debuff spells, defense spells) [manche spells zu mehreren Kategorien]
+	- Unterkategorie bei damage spells: damage type;
+		        Slashing
+        		Piercing
+        		Bludgeoning
+        		Poison
+        		Acid
+        		Fire
+        		Cold
+        		Radiant
+        		Necrotic
+        		Lightning
+        		Thunder
+        		Force
+        		Psychic
+
+	- Unterkategorie bei buff
+		- selbst vs andere
+		- attk, dmg, saving throws (Str, Dex, Con, Int, Wis, Cha), ability checks (Str, Dex, Con, Int, Wis, Cha)
+
+	- Unterkategorie bei debuff: combat stopping (z.B. Sleep, Charm Person)
+
+
+Arbeitsschritte
+- Korpus anlegen
+	- Annotieren welche Klasse und Level
+	- welche Kategorie und Unterkategorien (eventuell selber machen)
+
+Korpora
+- Spells
+- Monster
+
+Ablauf von Abfrage
+- Klasse & Level eingeben
+- Frage welche Sortierung man will
+
+Monsterbekämpfung
+- Abfrage bei Klasse & Level, "Welches Monster bekämpfst du?"
+	- wenn keine Eingabe -> weiter zu "What spell type" Kategoriesierung
+
+(
+Bei dmg
+-> im Hintergrund analysiert PRogramm resistances, immunities, vulnerabilties
+	-> spuckt keine spells aus die mit resistance/immunity korrelieren
+	-> spuckt spells aus deren damage type mit vulnerability korrespondiert
+		- wenn keine resistances, immunities, vulnerabilities "There are no more or less optimal spells against this enemy."
+)
+
+bei counter (= buff, debuff, defense)
+-> analysiert dmg type von enemy
+	-> analysiert welche dmg types enemy kann, sagt "The enemy has the following damage types: xyz. For which do you want suggestions?"
+	-> Nutzer gibt dmg types ein
+	-> Programm durchläuft spell liste (hier buff spells) auf die Nutzer abh. von Klasse und Level Zugriff hat
+	-> spuckt spells aus die gegen damage type guarden
+
+
+Umsetzung
+- csv dateien
+	- jede Zeile ist Datenpunkt
+	- wie excel nur statt spalten mit komma oder tab abgetrennt
+	- relativ leicht in python reinzuladen (in python ist es am ende ne liste von dictionary einträgen)
+	- liste von entitäten, jedes davon hat ne eigenschaft (könnten z.B. action als Eigenschaft mit kopiertem string)
+
+	- 1. Infos strukturiert aus webseiten rausholen und in csv verpacken um sprachl. analysieren können (wenn es nicht schon csv dafür gibt) (wenn nicht, Bescheid sagen, dann bring er uns scrapen bei scrapen mit Python code)
+	- können bsp csv Datei mit 10 Einträgen die wir manuell gemacht haben mit dem wir für den Moment weiterarbeiten können während andere Person scraper schreibt
+	- 2. Text nehmen und Info rausholen die relevant ist für was Nutzer am Ende stellt
+
+
+
+- wenn die zeile das monster ist 
+-> Auswertung kann on the fly sein vs. vorbereitet (hier eher on the fly)
+- welche spells kann man, welche sind relevant
+
+	- monster ID wiederholt sich
+	- 2te Spalte Action Name
+	- 3the Spalte Text von Action
+	(filter nach monster: gibt alles wo das Monster vorkommt -> 
+
+- Baum in if/else unterfunktionen -> Kategorisierung in Code, ob es zutrifft
+wenn on the fly Informationsabfrage muss man nicht ewig
+
+
+in Bsp: wir haben "fire damage" gefunden -> schauen ob Monster Subjekt oder Objekt ist (-> Dependenzanalyse, können wir in spacy machen) (waren im Tutorial bei queries Mustererkennung gemacht, können code schreiben der Schlüsselwort holt und schaut gibt es eingehend oder wir können Mustererkennung)
+	-> Frage ob wir alles so lösen können (Subj/Obj) oder müssen wir noch mehr machen
+	-> 
+
+
+Monsterliste in Actions auflisten (weil da wollen wir gegen schützen) -> Actions sind Liste (evtl strukturierte Infos)
+Spells sind relativer Freitext
+kennen Monster, kennen Actions, kennen Spells -> wollen sehen welche Spells werden rausgefiltert
+basierend auf Monster notw. Regeln aufstellen, Regeln als Codefragmente (schau in allen spells nach wo Regel erfüllt ist, gib nur spells aus die regen erfüllen)
+wir kennen actions schon (als if else ausgedrückt) -> wir schauen actionbeschreibungen an um zu schauen welche vorformulierten Regeln sind dafür relevant -> schauen dann auf Spells welche REgeln erfüllen
+
+kann man dmg type extrahieren (Schlüsselwortsuche) -> 13 Regeln auf alle Spells anwenden und schauen welche übrig bleiben
+(erst später schauen ob Spieler Zugriff hat)
+
+man nimmt Spell Beschreibung und weist Damage Typ zu
+
+_________________________________
+WENN KEINE WEBSEITEN WO LEUTE SORTIERT HABEN NACH DMG TYPE UND DEFENSIVE/OFFENSIVE
+1. Wir scrapen die spell list für alles mit z.B. fire damage
+2. Wir scrapen die resultierende Liste für alles was nicht offensive ist um defensive spells einer damage Art zu kriegen
+-> jetzt haben wir unsere eigenen Datensätze für Machine learning
+
+______________________
+MACHINE LEARNING VARIANTE (Spells kategorisieren)
+
+evtl sogar trainierbar aus artikeln mit wo z.B. fire damage spells rausgesucht (multi-label-tasking machine learning wenn es mehrere von 13 dmg types haben kann)
+-> geht in text rein, kriegt wahrscheinlichkeit für label zurück
+-> aus den bestehenden Daten trainingsmodell, webseiten parser der funktion rausscraped aus den webseiten
+-> können am ende überprüfen wie es auf daten die es noch nicht gesehen hat funktioniert -> kann mit z.B. 70% wahrscheinlichkeit die richtigen dmg types raussuchen
+- anfangen mit spells multi-label was dmg können die prinzipiell (besten fall lernt nicht nur stichwort findung sondern auch in kontext eingebaut wie z.B. wenn fire damage negiert ist)
+
+gemeines an dem projekt ist erstellen der trainingsdaten weil manche Leute es schon als html gemacht haben -> können aus alten spells lernen
+python bibliothek die multi-label-textklassifizierungen erlaubt
+hier ist csv datei mit trainingsdaten -> aus text multi label finden -> gibt am Ende Genauigkeit raus (meist ca. 70%)
+
+können noch eingeben und features extrahieren
+
+Flair nlp kann Textklassifizerung
+- weiß schon was text ist, liest Text als Sequenz ein, transformiert Text in Zwischeninformationen wodurch Struktur und so erhalten
+- hat Eigenmodelle wie z.B. Sentiment Analyse -- aber man kann auch eigene Sachen trainieren, Dokumentation anschauen für Tutorial
+- Tutorial mit Beispieldaten (z.B. 10 Spells selbst in csv eingeben) durchgehen damit wir Mechanismus kennenlernen
+- können wir webseiten scrapen wo z.B. schon nach damage type kategorisiert wurde
+
+-> am Ende kriegen csv raus
+
+-> kriegen aus den Spells damage Kategorien raus (kann zw. 2 Wochen bis zur ganzen Zeit brauchen)
+
+_________________
+
+WENN DAS GEKLAPPT HAT
+- wie kommen wir von Monsterbeschreibung auf relevante Dmg-Kategorien
+- evtl wieder über Machine Learning multi-label
