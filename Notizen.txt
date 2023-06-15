@@ -19,3 +19,7 @@ Ideen:
 1. Eingabe: Klasse & Level
 Ausgabe: "Was willst du? Welche Sortierung?"
 2. Eingabe:"Ich will alle spells (sortiert nach damage, type, saving throw, etc.)
+
+Kategorien
+1) Was für eine Art/Kategorie? (z.B. damage spell, buff spells, creating spells, enchanting spells) [manche spells zu mehreren Kategorien]
+	- Unterkategorie bei damage spells: damage type; 
