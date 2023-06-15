@@ -22,4 +22,19 @@ Ausgabe: "Was willst du? Welche Sortierung?"
 
 Kategorien
 1) Was für eine Art/Kategorie? (z.B. damage spell, buff spells, creating spells, enchanting spells) [manche spells zu mehreren Kategorien]
-	- Unterkategorie bei damage spells: damage type; 
+	- Unterkategorie bei damage spells: damage type;
+		        Slashing
+        		Piercing
+        		Bludgeoning
+        		Poison
+        		Acid
+        		Fire
+        		Cold
+        		Radiant
+        		Necrotic
+        		Lightning
+        		Thunder
+        		Force
+        		Psychic
+
+
