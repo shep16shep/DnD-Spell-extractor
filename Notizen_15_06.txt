@@ -158,10 +158,58 @@ WENN DAS GEKLAPPT HAT
 - wie kommen wir von Monsterbeschreibung auf relevante Dmg-Kategorien
 - evtl wieder über Machine Learning multi-label
 
+auf Github gibt es Liste mit einigen Spells computerlesbar angeordnet -> sind halt nicht alle -> ist das schlimm?
+
+	- mit der json können wir arbeiten
+	- json hat listen, dictionaries (namen, wertpaare)
+	- kann man einlesen bekommt da dictionary an listen
+	- geht mit import json
+	- decoding von import json oder json loads
+	- erst mit read all einlesen und mit json.load oder so wird es als python objekt reingeladen
+
+	- das hier ist dictionary {} (die json ist in mehreren dictionaries)
+	- python read file as string googlen
+	db["Name"]["level"] gibt z.B.5
 
 
+	- text als spalte, ding als nächste spalte
 
 ______________________________
 
 Wenn D&D Beyond kostenlos -> von da
 wenn D&D Beyond Sachen hinter ner paywall hat -> von da Spell Titel scrapen und dann die jeweilige Info dazu von wikidot
+
+
+zum raussuchen: Stichwörter protection from / resistance to
+
+
+Erstmal Fokus auf: wenn ich angegriffen werde wie mach ich das weniger stark
+Tags auf D&D beyond:
+	might be possible to focus on Combat (but also Debuff cause e.g. Dispel Evil and Good)
+
+
+evtl filter zw. "take" "takes" damage um zu schauen ist defensive / offensive
+filter auf "resistance against" "protection from"
+
+
+daraus csv datei
+for spell in db:
+	desc = db[spell]["description"]
+
+csv datei auf machen davon die zeilen rausschreiben
+eine spalte description, vorausgefüllte spalte mit damage type (
+
+wenn heuristik haben was damage type extrahiert - überprüfen und korrigieren
+damit dann flair nlp trainieren dass es dann
+
+
+erstmal csv datei mit 10 spells und da flair durchlaufen
+wenn das klappt, dann mit ersten 1000
+
+
+eine person heuristik machen und eine person csv dateien
+csv als excel abspeicherbar (kann in hu box editiert werden)
+
+- gemeinsam python code um das zeug in csv descriptions zu haben
+- als excel speichern
+- ich probiere parallel mit flair aus
