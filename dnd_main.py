@@ -1,6 +1,8 @@
-print("DnD 4 life")
-print("I cast Destroy Water.")
-print("The water is gone.")
+import json
 
-print("I cast Fireball")
-
+with open("spells.json", "r") as f:
+    content = f.read()
+    db = json.loads(content)
+    for spell in db:
+        entry = db[spell]
+        desc = entry["description"]
