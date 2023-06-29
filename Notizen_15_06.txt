@@ -225,3 +225,4 @@ db[spell] + desc + "\t" + entry + "\n"
 ___________________
 
 mit Isabelle abklären ob wir sagen "acid dmg" oder aufteilen in "acid defense" "acid offense"
+- 
