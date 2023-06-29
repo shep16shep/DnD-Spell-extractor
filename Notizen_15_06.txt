@@ -213,3 +213,10 @@ csv als excel abspeicherbar (kann in hu box editiert werden)
 - gemeinsam python code um das zeug in csv descriptions zu haben
 - als excel speichern
 - ich probiere parallel mit flair aus
+
+
+in csv Spalten durch tab getrennt
+
+\n heißt neue Zeile in Python
+\t in pyhton eingeben macht einen tab
+db[spell] + desc + "\t" + entry + "\n"
