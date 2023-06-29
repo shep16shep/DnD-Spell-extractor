@@ -157,3 +157,11 @@ _________________
 WENN DAS GEKLAPPT HAT
 - wie kommen wir von Monsterbeschreibung auf relevante Dmg-Kategorien
 - evtl wieder über Machine Learning multi-label
+
+
+
+
+______________________________
+
+Wenn D&D Beyond kostenlos -> von da
+wenn D&D Beyond Sachen hinter ner paywall hat -> von da Spell Titel scrapen und dann die jeweilige Info dazu von wikidot
