@@ -220,3 +220,8 @@ in csv Spalten durch tab getrennt
 \n heißt neue Zeile in Python
 \t in pyhton eingeben macht einen tab
 db[spell] + desc + "\t" + entry + "\n"
+
+
+___________________
+
+mit Isabelle abklären ob wir sagen "acid dmg" oder aufteilen in "acid defense" "acid offense"
